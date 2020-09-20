@@ -13,6 +13,7 @@ class Servo():
         GPIO.setup(servoPin,GPIO.OUT)
         self.servoPWM = GPIO.PWM(servoPin, 50)
         self.servoPWM.start(rangeDC / 2 + lowerDC)
+        self.currentAngle = maxAngle / 2
         sleep(1)
         self.servoPWM.ChangeDutyCylce(0)
         
