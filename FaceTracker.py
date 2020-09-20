@@ -9,7 +9,7 @@ faceCascade = cv.CascadeClassifier('haarcascade_frontalface_default.xml')
 yawServo = Servo(17)
 
 #PID Controller setup
-P, I, D = 0.5, 0, 0
+P, I, D = 0.1, 0, 0
 integral = 0
 differential = 0
 previousError = 0
@@ -25,7 +25,8 @@ time.sleep(0.1)
 
 for frame in camera.capture_continuous(rawCapture, format = "bgr", use_video_port = True):
     image = frame.array
-    frame = cv.flip(image, 1)
+    frame = cv.flip(image, 0)
+    #frame = cv.flip(frame, 0)
 
     grayFrame = cv.cvtColor(frame, cv.COLOR_BGR2GRAY) #convert to greyscale
 
@@ -46,7 +47,7 @@ for frame in camera.capture_continuous(rawCapture, format = "bgr", use_video_por
         break #only consider the first face
     
     cv.imshow('ComputerView',frame) #display image
-    key = cv.waitKey(1) &amp; 0xFF
+    key = cv.waitKey(1) & 0xFF
     rawCapture.truncate(0)
     if key == ord("q"):
         break
